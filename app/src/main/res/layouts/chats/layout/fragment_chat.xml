@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_chat_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:windowSoftInputMode="adjustPan">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_typing">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:padding="5dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_typing"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_above="@+id/khungchat"
+        android:visibility="gone">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_typing_avatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_no_avatar" />
+
+        <TextView
+            android:id="@+id/tv_typing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/iv_typing_avatar"
+            android:layout_toRightOf="@+id/iv_typing_avatar"
+            android:gravity="center_vertical"
+            android:padding="4dp"
+            android:text="Đang gõ" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/khungchat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:weightSum="8">
+
+        <ImageView
+            android:id="@+id/choose_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:src="@drawable/ic_add_image"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/edt_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:background="@drawable/bg_stroke"
+            android:ems="10"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="3"
+            android:paddingBottom="6dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="6dp" />
+
+        <ImageView
+            android:id="@+id/tv_send"
+            android:layout_width="50dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:src="@drawable/ic_send"
+            android:text="Gửi"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>

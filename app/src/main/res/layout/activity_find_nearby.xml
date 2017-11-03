@@ -1,0 +1,51 @@
+<com.flipboard.bottomsheet.BottomSheetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include layout="@layout/layout_search_distance" />
+
+        </LinearLayout>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btnMyLocation"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_my_location"
+            app:rippleColor="@color/colorPrimary"
+            fab:fab_colorNormal="@color/colorPrimary"
+            fab:fab_colorPressed="@color/colorPrimaryDark"
+            fab:fab_colorRipple="@color/colorPrimary"
+            fab:fab_label="Vị trí của tôi" />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btnPlacePicker"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_place_picker"
+            app:rippleColor="@color/colorPrimary"
+            fab:fab_colorNormal="@color/colorPrimary"
+            fab:fab_colorPressed="@color/colorPrimaryDark"
+            fab:fab_colorRipple="@color/colorPrimary"
+            fab:fab_label="Vị trí của tôi" />
+    </FrameLayout>
+</com.flipboard.bottomsheet.BottomSheetLayout>

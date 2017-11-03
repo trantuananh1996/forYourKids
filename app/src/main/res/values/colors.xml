@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00b8d4</color>
+    <color name="colorPrimaryDark">#00acc1</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorChatTextTitle">#ff929497</color>
+    <color name="FragmentBackground">#eeeeee</color>
+    <color name="colorIceWhite">#fafdff</color>
+    <color name="colorTextDark">#212121</color>
+    <color name="black">#000000</color>
+    <color name="dark_gray">#212121</color>
+    <color name="colorDivider">#263238</color>
+    <color name="colorMessageReceived">#f1f0f0</color>
+    <color name="colorHomeInboxUnreadBagde">#ff514a</color>
+
+
+</resources>

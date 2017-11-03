@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="album_thumbnail">Album Thumbnail</string>
+    <string name="image_thumbnail">Image thumbnail</string>
+    <string name="action_take_photo">Chụp ảnh</string>
+    <string name="all_photos">Tất cả ảnh</string>
+    <string name="image_check">Image check</string>
+    <string name="albums_title">Albums</string>
+    <string name="you_cant_check_more_images">Không thể chọn thêm ảnh</string>
+    <string name="image_position_in_view_pager">% of $</string>
+    <string name="action_select_all">Select all</string>
+    <string name="action_deselect_all">Deselect all</string>
+    <string name="video_too_long">Video quá dài. Video có chỉ được dài tối đa $ giây</string>
+    <string name="image_video_icon_desc">Indicates this thumbnail as video</string>
+    <string name="dialog_choose_camera_title">Chọn máy ảnh</string>
+    <string name="dialog_choose_camera_item_0">Chụp ảnh</string>
+    <string name="dialog_choose_camera_item_1">Quay phim</string>
+
+</resources>

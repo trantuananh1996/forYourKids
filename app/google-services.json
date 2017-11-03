@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "project_number": "1076120396201",
+    "firebase_url": "https://koi-app-7a536.firebaseio.com",
+    "project_id": "koi-app-7a536",
+    "storage_bucket": "koi-app-7a536.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076120396201:android:966341e9328f480e",
+        "android_client_info": {
+          "package_name": "koiapp.pr.com.koiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076120396201-chlh7ia6hjr7rhfkvc3jq0c5ia7veqok.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "koiapp.pr.com.koiapp",
+            "certificate_hash": "73b2d41f00a13100f00e8c1049f765ce82cc35f8"
+          }
+        },
+        {
+          "client_id": "1076120396201-geavsjhjubtkvjfo02gftjoht4mu6e9m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOgYH9FpVeBg42VW5ZBCvYOaFul_Ud6iI"
+        },
+        {
+          "current_key": "AIzaSyDEAQeWDAVuFzTJyhY-g2lvK5d9durAJMA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076120396201-geavsjhjubtkvjfo02gftjoht4mu6e9m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

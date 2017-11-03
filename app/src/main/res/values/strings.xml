@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">KOI APP</string>
+    <string name="title_activity_maps">Thông tin mầm non</string>
+    <string name="permission_title_rationale">Cần quyền truy cập</string>
+    <string name="label_cancel">Hủy</string>
+    <string name="label_ok">OK</string>
+    <string name="str_must_enter_school_name">Bạn phải nhập tên trường</string>
+    <string name="str_must_enter_school_address">Mời bạn nhập địa chỉ trường</string>
+    <string name="str_welcome_app">Chào mừng bạn đến với TTMN</string>
+    <string name="str_introduce">Tìm kiếm và chia sẻ thông tin về các trường mầm non ở Hà Nội</string>
+    <string name="parent_benefit">Tìm kiếm trường mầm non cho con dựa theo những tiêu chí cơ bản như: chất lượng, đánh giá của những phụ huynh khác, địa điểm, học phí,…</string>
+    <string name="school_benefit">Đến gần hơn với các vị phụ huynh thông qua danh sách tìm kiếm. Trò chuyện, tương tác với phụ huynh, thu nhận được những ý kiến đóng góp từ nhiều phía…</string>
+    <string name="rate_benefit">Đánh giá về trường mầm non mà bạn ấn tượng. Đưa ra những lời khuyên hữu ích dành cho những người có cùng mối quan tâm về con trẻ…</string>
+    <string name="search_benefit">Tìm kiếm theo địa chỉ, học phí hoặc tên cơ sở giáo dục mầm non. Kết quả hiển thị nhanh, chính xác, danh sách gợi ý dựa trên sự tiếp cận, đánh giá khách quan từ phía người dùng…</string>
+    <string name="str_string_typing">%s đang nhập…</string>
+    <string name="toast_no_image_choosed">Bạn chưa chọn ảnh</string>
+    <string name="toast_must_select_image">Bạn chưa chọn ảnh</string>
+    <string name="str_send_image_failed">Gửi ảnh thất bại</string>
+    <string name="toast_must_enter_message">Bạn phải nhập tin nhắn</string>
+    <string name="str_no_match">"Không có kết quả với từ khóa "</string>
+    <string name="login_forgot_password_description_dialog">Vui lòng nhập email mà bạn đã sử dụng để đăng ký trên hệ thống</string>
+    <string name="login_forgot_password_description_dialog_guide">Email hướng dẫn đăng nhập đã được gửi tới địa chỉ email của bạn. Vui lòng kiểm tra email.</string>
+    <string name="toast_get_password_not_email_invalid">Email không đúng định dạng</string>
+    <string name="toast_get_password_not_input_email">Vui lòng nhập địa chỉ email trước khi gửi</string>
+    <string name="parent_token_key">Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE3MjksImlzcyI6Imh0dHA6XC9cL2tvbXQua2lkc29ubGluZS5lZHUudm5cL2FwaVwvdjJcL2d1YXJkaWFuXC9sb2dpbiIsImlhdCI6MTQ5NzUwMTIyNiwiZXhwIjoxNTAyNjg1MjI2LCJuYmYiOjE0OTc1MDEyMjYsImp0aSI6IjFjODQwN2ViNzUwNjc3YTVjYzg5ZTZiZWMwMThkZGZjIn0.MyE7vhseDZJbaqmqTATjeD7aTJLkJj8gZIjxGWfC-kw</string>
+    <string name="str_lastest">Tin mới nhất</string>
+    <string name="str_popular">Được quan tâm</string>
+    <string name="str_connect_error">Đường truyền mạng không ổn định, phụ huynh vui lòng thao tác lại</string>
+    <string-array name="array_distance_units">
+        <item>m</item>
+        <item>km</item>
+    </string-array>
+    <string name="button_yes">Có</string>
+    <string name="button_no">Không</string>
+    <string name="facebook_app_id">1915216105421966</string>
+</resources>

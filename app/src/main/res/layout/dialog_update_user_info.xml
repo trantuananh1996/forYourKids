@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:cardElevation="0dp">
+
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_no_avatar"
+                        app:civ_border_color="@color/colorIceWhite"
+                        app:civ_border_width="5dp"
+                        app:civ_shadow="true"
+                        app:civ_shadow_color="@color/colorTextDark"
+                        app:civ_shadow_radius="10" />
+
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:id="@+id/ll_account_management"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="end|bottom"
+                        android:padding="5dp"
+                        android:src="@drawable/camera"
+                        app:civ_border_color="@color/colorIceWhite"
+                        app:civ_border_width="5dp"
+                        app:civ_shadow="false"
+                        app:civ_shadow_color="@color/black" />
+                </android.support.v7.widget.CardView>
+
+                <EditText
+                    android:id="@+id/et_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_edittext_underline"
+                    android:gravity="center"
+                    android:hint="Tên người dùng"
+                    android:padding="4dp"
+                    android:textColorHint="@drawable/hint_text_color"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_user_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_edittext_underline"
+                    android:gravity="center"
+                    android:hint="Ngày sinh"
+                    android:padding="4dp"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_update"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
+                android:text="Cập nhật"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>

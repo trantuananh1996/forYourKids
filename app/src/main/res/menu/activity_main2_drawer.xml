@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search"
+            android:title="Tìm kiếm" />
+        <item
+            android:id="@+id/nav_search_nearby"
+            android:icon="@drawable/ic_search_nearby"
+            android:title="Tìm kiếm quanh đây" />
+        <item
+            android:id="@+id/nav_kidsonline_corner"
+            android:icon="@drawable/ic_menu_news"
+            android:title="Bài viết" />
+        <item
+            android:id="@+id/nav_message"
+            android:icon="@drawable/ic_message"
+            android:title="Tin nhắn" />
+    </group>
+
+    <item android:title="Tài khoản">
+        <menu>
+            <item
+                android:id="@+id/nav_login"
+                android:icon="@drawable/ic_login"
+                android:title="Đăng nhập" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Đăng xuất" />
+            <item
+                android:id="@+id/nav_register"
+                android:icon="@drawable/ic_register"
+                android:title="Đăng kí" />
+            <item
+                android:id="@+id/nav_switch_role"
+                android:icon="@drawable/ic_switch_role"
+                android:title="Đổi vai trò" />
+        </menu>
+    </item>
+    <item android:title="Quản lí">
+        <menu>
+            <item
+                android:id="@+id/nav_admin_dashboard"
+                android:icon="@drawable/ic_login"
+                android:title="Quản lí hệ thống" />
+            <item
+                android:id="@+id/nav_school_manager_dashboard"
+                android:icon="@drawable/ic_logout"
+                android:title="Quản lí trường" />
+        </menu>
+    </item>
+</menu>

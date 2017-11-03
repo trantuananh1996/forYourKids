@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="koiapp.pr.com.koiapp">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- START Added for GCM -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.intent.action.MEDIA_MOUNTED" />
+
+    <protected-broadcast android:name="android.intent.action.MEDIA_MOUNTED" />
+    <permission
+        android:name="${applicationId}.permission.C2D_MESSAGE"
+        android:protectionLevel="signature"/>
+
+    <!-- END Added for GCM -->
+    <application
+        android:name=".activity.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/api_key_map" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <!--<meta-data-->
+        <!--android:name="koiapp.pr.com.koiapp.utils.UnsafeOkHttpClient"-->
+        <!--android:value="GlideModule" />-->
+        <activity
+            android:name=".activity.ActivityLogin"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ActivityRegister"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".moduleChat.activity.ActivityContact"
+            android:label="Tin nhắn" />
+        <activity
+            android:name=".activity.ActivityStart"
+            android:label="@string/title_activity_maps"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".moduleSchoolInfo.activity.ActivitySchoolInfo"
+            android:label="Thông tin trường"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".modulePost.activity.ActivityKidsOnlineCorner"
+            android:label="Bài viết" />
+        <activity android:name=".modulePost.activity.ActivityViewPostWebView" />
+        <activity
+            android:name=".moduleSearch.activity.ActivityFindNearby"
+            android:label="Tìm quanh đây" />
+
+        <service android:name=".fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".fcm.MyFirebaseInstanceIdServices">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".moduleAdmin.activity.ActivityDashboardAdmin"
+            android:label="Quản trị hệ thống" />
+        <activity
+            android:name=".moduleManager.activity.ActivityDashboardManager"
+            android:label="Quản trị trường" />
+    </application>
+
+</manifest>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_forgot_passw"
+    android:clickable="true"
+    android:padding="8dp">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/iv_forgot_password_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="5dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/iv_forgot_password_logo"
+            android:layout_toRightOf="@+id/iv_forgot_password_logo"
+            android:paddingTop="5dp"
+            android:text="Tài khoản hiện tại chưa có vai trò trong hệ thống.\nMời bạn chọn vai trò"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btn_yes"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/relativeLayout6"
+        android:layout_alignRight="@+id/relativeLayout6"
+        android:layout_below="@+id/rl_spinner"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_button"
+        android:text="Đồng ý"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite" />
+
+    <LinearLayout
+        android:id="@+id/rl_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout6"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/bg_stroke"
+        android:focusable="false"
+        android:orientation="vertical"
+        android:spinnerMode="dropdown">
+
+
+        <CheckBox
+            android:id="@+id/rb_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phụ huynh" />
+
+        <CheckBox
+            android:id="@+id/rb_manager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quản trị nhà trường" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_register_learn"
+        android:orderInCategory="100"
+        android:title="Đăng kí học"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_register_manager"
+        android:orderInCategory="100"
+        android:title="Đăng kí quản lí"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_change_info"
+        android:orderInCategory="100"
+        android:title="Chỉnh sửa thông tin"
+        app:showAsAction="never" />
+</menu>

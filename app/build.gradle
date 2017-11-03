@@ -1,0 +1,107 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '26.0.2'
+    defaultConfig {
+        applicationId "koiapp.pr.com.koiapp"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    packagingOptions {
+        exclude 'META-INF/maven/com.squareup.retrofit/retrofit/pom.properties'
+        exclude 'META-INF/maven/com.squareup.retrofit/retrofit/pom.xml'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/kidsonlineCorner',
+                            'src/main/res/layouts/review',
+                            'src/main/res/layouts/chats',
+                            'src/main/res/layouts/dashboardAdmin',
+
+                            'src/main/res/layouts',
+                            'src/main/res/drawables',
+                            'src/main/res/mipmaps',
+                            'src/main/res'
+                    ]
+        }
+    }
+//    useLibrary 'org.apache.http.legacy'
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+repositories {
+    maven {
+        url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo'
+    }
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+    maven { url "https://jitpack.io" }
+    google()
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.uphyca:stetho_realm:2.0.0'
+    compile 'com.github.clans:fab:1.6.4'
+    compile project(path: ':library')
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.google.android.gms:play-services:11.0.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+
+    compile project(':imagepicker')
+    compile 'com.uphyca:stetho_realm:2.0.0'
+    compile 'com.github.clans:fab:1.6.4'
+    compile group: 'se.emilsjolander', name: 'stickylistheaders', version: '2.6.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.0.1'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'com.flipboard:bottomsheet-core:1.5.3'
+    compile 'com.flipboard:bottomsheet-commons:1.5.3'
+    compile 'com.yalantis:contextmenu:1.0.7'
+    compile 'com.pixplicity.multiviewpager:library:1.0'
+    compile 'com.makeramen:roundedimageview:2.3.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.google.firebase:firebase-core:11.0.0'
+    compile 'com.google.firebase:firebase-database:11.0.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
+
+    compile 'com.google.firebase:firebase-auth:11.0.0'
+    compile 'com.google.firebase:firebase-storage:11.0.0'
+    compile 'com.firebaseui:firebase-ui-storage:0.6.0'
+    compile 'com.google.firebase:firebase-messaging:11.0.0'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    testCompile 'junit:junit:4.12'
+    compile 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile('com.mikhaellopez:circularimageview:3.0.2') {
+        exclude group: 'org.apache.commons', module: 'commons-io'
+    }
+}
+apply plugin: 'com.google.gms.google-services'
