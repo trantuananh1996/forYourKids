@@ -1,6 +1,21 @@
 {
     "logs": [
         {
+            "outputFile": "C:\\Users\\Tran Anh\\Documents\\GitHub\\forYourKids\\imagepicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-h720dp-v13\\values-h720dp-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Tran Anh\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\67227a5561fb91426d83bf644aa8a338\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "66",
+                        "endOffsets": "117"
+                    }
+                }
+            ]
+        },
+        {
             "outputFile": "C:\\Users\\Tran Anh\\Documents\\KidsOnline\\Android_SourceCode\\KOIAPP\\imagepicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-h720dp-v13\\values-h720dp-v13.xml",
             "map": [
                 {

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KOIAPP.iml" filepath="$PROJECT_DIR$/KOIAPP.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/forYourKids.iml" filepath="$PROJECT_DIR$/forYourKids.iml" />
       <module fileurl="file://$PROJECT_DIR$/imagepicker/imagepicker.iml" filepath="$PROJECT_DIR$/imagepicker/imagepicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
     </modules>

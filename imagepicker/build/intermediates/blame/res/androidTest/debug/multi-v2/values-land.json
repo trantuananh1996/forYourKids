@@ -1,6 +1,57 @@
 {
     "logs": [
         {
+            "outputFile": "C:\\Users\\Tran Anh\\Documents\\GitHub\\forYourKids\\imagepicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-land\\values-land.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Tran Anh\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\1d65ffba344eb6227b09090dc1514b8a\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "232"
+                    },
+                    "to": {
+                        "startLines": "9",
+                        "startColumns": "4",
+                        "startOffsets": "475",
+                        "endLines": "12",
+                        "endColumns": "12",
+                        "endOffsets": "652"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Tran Anh\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\67227a5561fb91426d83bf644aa8a338\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,125,189,260",
+                        "endColumns": "69,63,70,67",
+                        "endOffsets": "120,184,255,323"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Tran Anh\\Documents\\GitHub\\forYourKids\\imagepicker\\build\\intermediates\\bundles\\debug\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,100,151",
+                        "endColumns": "44,50,50",
+                        "endOffsets": "95,146,197"
+                    },
+                    "to": {
+                        "startLines": "6,7,8",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "328,373,424",
+                        "endColumns": "44,50,50",
+                        "endOffsets": "368,419,470"
+                    }
+                }
+            ]
+        },
+        {
             "outputFile": "C:\\Users\\Tran Anh\\Documents\\KidsOnline\\Android_SourceCode\\KOIAPP\\imagepicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
