@@ -26,10 +26,6 @@ import koiapp.pr.com.koiapp.utils.AppUtils;
 import koiapp.pr.com.koiapp.utils.debug.Debug;
 import koiapp.pr.com.koiapp.utils.view.PrFragment;
 
-/**
- * Created by nguyentt
- * on 6/13/2017.
- */
 
 public class FragmentRegisterManager extends PrFragment {
     RecyclerView recyclerView;

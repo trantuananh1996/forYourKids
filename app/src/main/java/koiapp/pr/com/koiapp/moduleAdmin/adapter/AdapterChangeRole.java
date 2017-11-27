@@ -27,10 +27,6 @@ import koiapp.pr.com.koiapp.utils.AppUtils;
 import koiapp.pr.com.koiapp.utils.DateTimeUtils;
 import koiapp.pr.com.koiapp.utils.ImageUtils;
 
-/**
- * Created by nguyentt
- * on 6/13/2017.
- */
 
 public class AdapterChangeRole extends RecyclerView.Adapter<AdapterChangeRole.RegisterManagerViewHolder> {
     Activity activity;

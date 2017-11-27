@@ -22,6 +22,8 @@ import java.util.List;
 
 import koiapp.pr.com.koiapp.R;
 
+
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;

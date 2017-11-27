@@ -71,15 +71,6 @@ import koiapp.pr.com.koiapp.utils.view.Config;
 
 import static koiapp.pr.com.koiapp.utils.AppUtils.createDialogFromActivity;
 
-/**
- * Multi touch
- * Services
- * Json, api...
- * Maps
- * noti
- * database
- *
- */
 public class ActivityStart extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     EditText edtSearch;

@@ -58,12 +58,6 @@ import koiapp.pr.com.koiapp.utils.FragmentUtils;
 import static koiapp.pr.com.koiapp.utils.FragmentUtils.showProgress;
 
 
-/**
- * Created by Tran Anh on 9/27/2016.
- * .
- */
-
-
 public class ActivityRegister extends Activity implements View.OnClickListener {
     EditText etUserName;
     EditText etPassw;

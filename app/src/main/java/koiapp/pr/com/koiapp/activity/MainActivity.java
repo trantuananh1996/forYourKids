@@ -3,6 +3,7 @@ package koiapp.pr.com.koiapp.activity;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
@@ -10,10 +11,8 @@ import com.shahroz.svlibrary.interfaces.onSearchListener;
 import com.shahroz.svlibrary.interfaces.onSimpleSearchActionsListener;
 import com.shahroz.svlibrary.widgets.MaterialSearchView;
 
-/**
- * Created by Tran Anh
- * on 4/17/2017.
- */
+import koiapp.pr.com.koiapp.R;
+
 
 public class MainActivity extends AppCompatActivity implements onSimpleSearchActionsListener, onSearchListener {
     ProgressDialog progressDialog;
@@ -61,51 +60,6 @@ public class MainActivity extends AppCompatActivity implements onSimpleSearchAct
 
     }
 /*
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.e("MainActivity", "onCreate");
-        setContentView(R.layout.main_activity);
-        createSearchView();
-        getListSchool();
-
-        findViewById(R.id.main_activity).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (mSearchView != null) {
-                    mSearchView.hide();
-                    UIUtil.hideKeyboard(MainActivity.this);
-                }
-                return false;
-            }
-        });
-
-        findViewById(R.id.add_school).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentUtils.addNewFragment(FragmentAddSchool.TAG, "Thêm trường", MainActivity.this);
-            }
-        });
-    }
-
-    private void removeAllFragmentExceptMainFragment() {
-        count_fragment = 0;
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        List<Fragment> fragments = manager.getFragments();
-        if (fragments.isEmpty()) return;
-        for (Fragment f : fragments) {
-            if (f != null) {
-                try {
-                    transaction.remove(f);
-                    f.onDestroy();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        transaction.commit();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

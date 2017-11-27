@@ -13,10 +13,6 @@ import koiapp.pr.com.koiapp.R;
 import koiapp.pr.com.koiapp.moduleSearch.adapter.PagerAdapterInfo;
 import koiapp.pr.com.koiapp.utils.view.PrFragment;
 
-/**
- * Created by nguyentt
- * on 4/19/2017.
- */
 
 public class ActivityDashboardAdmin extends AppCompatActivity {
     ProgressBar progressBar;

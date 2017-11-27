@@ -20,8 +20,10 @@ public class KOAPI {
     static Retrofit retrofit = new Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
+
             .baseUrl(Constants.URL_BASE_KOMT).build();
     private static AppServices services = retrofit.create(AppServices.class);
+
 
     public static AppServices getKOServices() {
         return services;

@@ -2,10 +2,6 @@ package koiapp.pr.com.koiapp.moduleAdmin.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Tran Anh
- * on 6/13/2017.
- */
 
 public class PendingChangeRole {
     @SerializedName("request_time")
