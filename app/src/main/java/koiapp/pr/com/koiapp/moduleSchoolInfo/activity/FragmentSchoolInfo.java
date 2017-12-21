@@ -1,9 +1,12 @@
 package koiapp.pr.com.koiapp.moduleSchoolInfo.activity;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,46 +57,71 @@ public class FragmentSchoolInfo extends PrFragment {
         });
     }
 
-    private void addInfo(LinearLayout parent, String title, String content) {
-        Log.e("Ahihi", title + content);
+    private void addInfo(LinearLayout parent, @DrawableRes int id, String content) {
         if (TextUtils.isEmpty(content)) return;
         View view = View.inflate(getActivity(), R.layout.item_general_info, null);
-        TextView tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        TextView tvContent = (TextView) view.findViewById(R.id.tv_content);
-        tvTitle.setText(title);
+        ImageView tvTitle = view.findViewById(R.id.tv_title);
+        TextView tvContent = view.findViewById(R.id.tv_content);
         tvContent.setText(content);
+        tvTitle.setImageResource(id);
+        view.setOnClickListener(v -> {
+            if (id == R.drawable.ic_phone) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + content));
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else if (id == R.drawable.ic_web) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(content));
+                try {
+                    startActivity(i);
+                } catch (ActivityNotFoundException e) {
+                    e.printStackTrace();
+                }            } else if (id == R.drawable.ic_location) {
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + content);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                try {
+                    startActivity(mapIntent);
+                } catch (ActivityNotFoundException e) {
+                    e.printStackTrace();
+                }            }
+
+        });
         parent.addView(view);
     }
 
     private void addDetailInfo(ResultDetail detail, LinearLayout llCOntent) {
         if (detail == null) return;
-        addInfo(llCOntent, "Liên hệ", detail.getFormattedPhoneNumber());
-        addInfo(llCOntent, "Website", detail.getWebsite());
+        addInfo(llCOntent, R.drawable.ic_phone, detail.getFormattedPhoneNumber());
+        addInfo(llCOntent, R.drawable.ic_web, detail.getWebsite());
     }
 
     private void bindData() {
         if (detail == null) {
             return;
         }
-        final LinearLayout llCOntent = (LinearLayout) rootView.findViewById(R.id.ll_general_info);
-        TextView tvAbout = (TextView) rootView.findViewById(R.id.tv_about);
-        tvAbout.setText("Giới thiệu về " + detail.getName());
+        final LinearLayout llCOntent = rootView.findViewById(R.id.ll_general_info);
+        TextView tvAbout = rootView.findViewById(R.id.tv_about);
+        tvAbout.setVisibility(View.GONE);
+//        tvAbout.setText("Giới thiệu về " + detail.getName());
         tvSchoolName.setText(detail.getName());
         if (detail.getPhotos() != null && detail.getPhotos().size() > 0)
             new GoogleMapApiHelper(getActivity()).loadImage(ivSchoolCover, detail.getPhotos().get(0).getPhotoReference());
-        addInfo(llCOntent, "Tổng quan", detail.getName());
-        addInfo(llCOntent, "Địa chỉ", detail.getFormattedAddress());
+//        addInfo(llCOntent, R.drawable.ic_phone, detail.getName());
+        addInfo(llCOntent, R.drawable.ic_location, detail.getFormattedAddress());
         addDetailInfo(detail, llCOntent);
     }
 
 
     public void findView() {
-        tvSchoolName = (TextView) rootView.findViewById(R.id.tv_school_name);
-        ivSchoolCover = (ImageView) rootView.findViewById(R.id.iv_cover);
-        viewOnMap = (FloatingActionButton) rootView.findViewById(R.id.view_on_map);
+        tvSchoolName = rootView.findViewById(R.id.tv_school_name);
+        ivSchoolCover = rootView.findViewById(R.id.iv_cover);
+        viewOnMap = rootView.findViewById(R.id.view_on_map);
     }
-
-
 
 
     public void setDetail(ResultDetail detail) {

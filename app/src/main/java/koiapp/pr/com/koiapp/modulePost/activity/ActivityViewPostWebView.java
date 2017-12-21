@@ -21,15 +21,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
+//import com.facebook.share.model.ShareLinkContent;
+//import com.facebook.share.widget.ShareDialog;
 
 import io.realm.Realm;
 import koiapp.pr.com.koiapp.R;
-import koiapp.pr.com.koiapp.modulePost.model.KidsCornerPost;
 import koiapp.pr.com.koiapp.utils.NameConfigs;
 import koiapp.pr.com.koiapp.utils.debug.Debug;
 import koiapp.pr.com.koiapp.utils.realm.PrRealm;
+
+//import com.facebook.share.model.ShareLinkContent;
+//import com.facebook.share.widget.ShareDialog;
 
 /**
  * Created by Tran Anh
@@ -41,7 +43,6 @@ public class ActivityViewPostWebView extends Activity {
     WebView webview;
     View ivShare;
     String url;
-    KidsCornerPost post;
     ProgressBar progressBar;
     TextView tvTitle;
     TextView tvSubtitle;
@@ -51,7 +52,7 @@ public class ActivityViewPostWebView extends Activity {
     TextView tvCountLike;
     TextView tvCountComment;
     ImageView ivFlower;
-//    CommentModule commentModule;
+    //    CommentModule commentModule;
     View like;
     Realm realm;
 
@@ -69,36 +70,9 @@ public class ActivityViewPostWebView extends Activity {
         tvCountLike.setText("Thích");
         tvCountComment.setText("Bình luận");
         initWebview(webview);
-        int postToShareStr = getIntent().getExtras().getInt("POST_ID");
-        post = realm.where(KidsCornerPost.class).equalTo("id", postToShareStr).findFirst();
-        if (post != null) {
-            url = post.getUrl();
-            tvTitle.setText(post.getTitle());
-            tvSubtitle.setText(post.getUrl());
-         /*   commentModule = new CommentModule.Builder(ActivityViewPostWebView.this)
-                    .setModeField(CommentModule.MODE_POST, post.getId())
-                    .setAddCommentUrl("api/v3/corner-kidsonline/comments/writeComment")
-                    .setEditCommentUrl("api/v3/corner-kidsonline/comments/editComment")
-                    .setDeleteCommentUrl("api/v3/corner-kidsonline/comments/deleteComment")
-                    .setGetCommentUrl("api/v3/corner-kidsonline/comments/loadComments")
-                    .setLikeUrl("api/v3/corner-kidsonline/comments/like")
-                    .setUnlikeUrl("api/v3/corner-kidsonline/comments/unlike")
-                    .setViewInfo(false)
-                    .setOnLoadReadyListener(new CommentModule.OnLoadCommentReadyListener() {
-                        @Override
-                        public void onLoadReady(DataLoadComment dataLoadComment) {
-                            tvCountLike.setText(dataLoadComment.getLikes().getCountLikes() + " thích");
-                            tvCountComment.setText(dataLoadComment.getComments().size() + " bình luận");
-                            if (dataLoadComment.getLikes().getWasLiked() == 1) {
-                                //noinspection deprecation
-                                ivFlower.setAlpha(255);
-                            } else {
-                                //noinspection deprecation
-                                ivFlower.setAlpha(77);
-                            }
-                        }
-                    })
-                    .build();*/
+        try {
+            url = getIntent().getExtras().getString("url");
+        } catch (Exception e) {
         }
         if (!TextUtils.isEmpty(url)) {
             webview.loadUrl(url);
@@ -109,19 +83,17 @@ public class ActivityViewPostWebView extends Activity {
 
     private void addListener() {
         ivShare.setOnClickListener(v -> {
-            ShareDialog shareDialog = new ShareDialog(ActivityViewPostWebView.this);
-            if (ShareDialog.canShow(ShareLinkContent.class)) {
-                ShareLinkContent content = new ShareLinkContent.Builder()
-                        .setContentUrl(Uri.parse(webview.getUrl()))
-                        .setContentTitle(webview.getTitle())
-                        .build();
-                shareDialog.show(content);
-            }
+//            ShareDialog shareDialog = new ShareDialog(ActivityViewPostWebView.this);
+//            if (ShareDialog.canShow(ShareLinkContent.class)) {
+//                ShareLinkContent content = new ShareLinkContent.Builder()
+//                        .setContentUrl(Uri.parse(webview.getUrl()))
+//                        .setContentTitle(webview.getTitle())
+//                        .build();
+//                shareDialog.show(content);
+//            }
         });
         ivCancel.setOnClickListener(v -> ActivityViewPostWebView.this.finish());
-        if (post != null) ivComment.setOnClickListener(v -> {
-//                if (commentModule != null) commentModule.showDialogComment();
-        });
+
         like.setOnClickListener(v -> {
 //                if (commentModule != null) commentModule.switchLike();
         });

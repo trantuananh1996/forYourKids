@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.yazeed44.imagepicker.library" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="25" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application android:allowBackup="true" >
+        <activity android:name="net.yazeed44.imagepicker.ui.PickerActivity" />
+
+        <service
+            android:name="net.yazeed44.imagepicker.util.OfflineSpiceService"
+            android:exported="false" />
+    </application>
+
+</manifest>

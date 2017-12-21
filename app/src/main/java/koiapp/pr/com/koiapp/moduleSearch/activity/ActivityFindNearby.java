@@ -17,7 +17,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
@@ -50,18 +49,23 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.maps.GeoApiContext;
+import com.google.maps.PlacesApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.PlacesSearchResponse;
+import com.google.maps.model.PlacesSearchResult;
 
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
 
+import java.io.IOException;
+
 import koiapp.pr.com.koiapp.R;
 import koiapp.pr.com.koiapp.moduleSchoolInfo.activity.ActivitySchoolInfo;
-import koiapp.pr.com.koiapp.moduleSearch.model.DataSearchMap;
 import koiapp.pr.com.koiapp.moduleSearch.model.Result;
 import koiapp.pr.com.koiapp.moduleSearch.model.placeDetail.DataPlaceDetail;
 import koiapp.pr.com.koiapp.moduleSearch.model.placeDetail.ResultDetail;
 import koiapp.pr.com.koiapp.moduleSearch.utils.GetDetailCallBack;
 import koiapp.pr.com.koiapp.moduleSearch.utils.GoogleMapApiHelper;
-import koiapp.pr.com.koiapp.moduleSearch.utils.SearchCallBack;
 import koiapp.pr.com.koiapp.utils.debug.Debug;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -127,6 +131,7 @@ public class ActivityFindNearby extends FragmentActivity implements OnMapReadyCa
 
     private void getMyLocation() {
         buildGoogleApiClient();
+//        mMap.setOnMyLocationChangeListener(location -> changeLocation(new LatLng(location.getLatitude(), location.getLongitude())));
     }
 
     /**
@@ -178,12 +183,12 @@ public class ActivityFindNearby extends FragmentActivity implements OnMapReadyCa
             @Override
             public boolean onMarkerClick(Marker mMarker) {
                 marker = mMarker;
-                final Result abc = (Result) marker.getTag();
+                final PlacesSearchResult abc = (PlacesSearchResult) marker.getTag();
                 if (abc == null) {
                     mMap.moveCamera(CameraUpdateFactory.zoomIn());
                     return true;
                 }
-                new GoogleMapApiHelper(ActivityFindNearby.this).getDetail(abc.getPlaceId(), new GetDetailCallBack() {
+                new GoogleMapApiHelper(ActivityFindNearby.this).getDetail(abc.placeId, new GetDetailCallBack() {
                     @Override
                     public void onSearchCompleted(final ResultDetail detail) {
                         if (detail == null) return;
@@ -260,6 +265,7 @@ public class ActivityFindNearby extends FragmentActivity implements OnMapReadyCa
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 17) {
@@ -269,10 +275,15 @@ public class ActivityFindNearby extends FragmentActivity implements OnMapReadyCa
             }
         }
     }
+
     private void search() {
+        GeoApiContext context = new GeoApiContext.Builder()
+                .apiKey(getString(R.string.google_maps_key))
+                .build();
+        String School = "mầm non mẫu giáo kindergarten";
+
         progressDialog = ProgressDialog.show(ActivityFindNearby.this, "", "Đang tìm kiếm", true);
         UIUtil.hideKeyboard(ActivityFindNearby.this);
-        String School = "mầm non mẫu giáo kindergarten";
         String strRadius = edtRadius.getText().toString();
         String unit = spinnerUnits.getSelectedItem().toString();
         int radius = 1000;
@@ -283,26 +294,25 @@ public class ActivityFindNearby extends FragmentActivity implements OnMapReadyCa
             n.printStackTrace();
         }
         mMap.clear();
-        changeLocation(new LatLng(latitude,longitude));
-        String location = latitude + "," + longitude;
-        new GoogleMapApiHelper(ActivityFindNearby.this).getSearchRadarResult(
-                School,
-                radius,
-                location,
-                new SearchCallBack() {
-                    @Override
-                    public void onSearchCompleted(final DataSearchMap dataSearchMap) {
-                        progressDialog.dismiss();
-                        handleNearbySearchResult(dataSearchMap);
-                    }
+        changeLocation(new LatLng(latitude, longitude));
+        try {
+            PlacesSearchResponse a = PlacesApi.nearbySearchQuery(context, new com.google.maps.model.LatLng(latitude, longitude))
+                    .keyword(School)
+                    .radius(radius).await();
+            handleNearbySearchResult(a);
+        } catch (ApiException e) {
+            e.printStackTrace();
+            Snackbar.make(edtRadius, e.getMessage(), Snackbar.LENGTH_LONG).show();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Snackbar.make(edtRadius, e.getMessage(), Snackbar.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Snackbar.make(edtRadius, e.getMessage(), Snackbar.LENGTH_LONG).show();
+        } finally {
+            progressDialog.dismiss();
 
-                    @Override
-                    public void onSearchFailed(String status, String message) {
-                        progressDialog.dismiss();
-                        Snackbar.make(edtRadius, message, Snackbar.LENGTH_LONG).show();
-                    }
-                }
-        );
+        }
     }
 
     private void handlePlaceDetail(String placeId) {
@@ -341,13 +351,13 @@ public class ActivityFindNearby extends FragmentActivity implements OnMapReadyCa
     }
 
 
-    private void handleNearbySearchResult(DataSearchMap dataSearchMap) {
-        if (dataSearchMap.getResults() != null && dataSearchMap.getResults().size() > 0) {
-            for (final Result ab : dataSearchMap.getResults()) {
+    private void handleNearbySearchResult(PlacesSearchResponse dataSearchMap) {
+        if (dataSearchMap.results != null && dataSearchMap.results.length > 0) {
+            for (final PlacesSearchResult ab : dataSearchMap.results) {
 //                handlePlaceDetail(ab.getPlaceId());
                 final MarkerOptions markerOptions = new MarkerOptions();
 
-                final LatLng latLng = ab.getGeometry().getLocation().getLatLng();
+                final LatLng latLng = new LatLng(ab.geometry.location.lat, ab.geometry.location.lng);
                 markerOptions.position(latLng);
                 Marker marker = mMap.addMarker(markerOptions);
                 marker.setTag(ab);
@@ -401,9 +411,6 @@ public class ActivityFindNearby extends FragmentActivity implements OnMapReadyCa
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
-        //move map camera
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//        mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)      // Sets the center of the map to location user
@@ -414,7 +421,7 @@ public class ActivityFindNearby extends FragmentActivity implements OnMapReadyCa
 
         //stop location updates
         if (mGoogleApiClient != null) {
-            if(mGoogleApiClient.isConnected()){
+            if (mGoogleApiClient.isConnected()) {
                 LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             }
         }
@@ -429,6 +436,7 @@ public class ActivityFindNearby extends FragmentActivity implements OnMapReadyCa
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     public boolean checkLocationPermission() {

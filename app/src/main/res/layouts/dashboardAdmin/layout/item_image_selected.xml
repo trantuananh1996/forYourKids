@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <koiapp.pr.com.koiapp.utils.SquareImageViewByHeight
+        android:id="@+id/iv_selected"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/no_image" />
+
+    <koiapp.pr.com.koiapp.utils.SquareImageView
+        android:id="@+id/iv_selected_width"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/no_image"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/iv_edit"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg_home_inbox_unread_bagde"
+        android:gravity="center"
+        android:maxHeight="20dp"
+        android:maxWidth="20dp"
+        android:padding="1dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/remove"
+        android:text="x"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+</RelativeLayout>

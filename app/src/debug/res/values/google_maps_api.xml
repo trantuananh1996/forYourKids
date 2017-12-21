@@ -15,9 +15,9 @@
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.
     -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDqoNmGPYVbOtHl5e29zLAmmhD560R57nc</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCRT8hYBKtmhchJ_KCIZtGgw45YxKUrKYM</string>
     <!--<string name="api_key_map">AIzaSyDZYaB0wdsbxc4xjEuRu_qz2KdRLlw5rZ0</string>-->
-    <string name="api_key_map">AIzaSyDqoNmGPYVbOtHl5e29zLAmmhD560R57nc</string>
+    <string name="api_key_map">AIzaSyB-TcP8Rk2PrhFDfnq25Mrqel7edA270f4</string>
     <string name="firebase_key_authorization">key=AIzaSyBpgEIIaKqrg_Bj8S6tMC4bQuBbG-WIdSI</string>
     <string name="firebase_content_type">application/json</string>
 </resources>

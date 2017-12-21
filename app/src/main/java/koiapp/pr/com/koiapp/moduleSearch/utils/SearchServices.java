@@ -13,8 +13,9 @@ import retrofit2.http.Query;
  */
 
 public interface SearchServices {
-    @GET("textsearch/json")
-    Call<DataSearchMap> textSearch(@Query("query") String query
+//    @GET("textsearch/json")
+    @GET("nearbysearch/json?location=21.021322500000004,105.79484765625003&type=school&radius=50000")
+    Call<DataSearchMap> textSearch(@Query("keyword") String query
             , @Query("key") String apiKey);
 
     @GET("nearbysearch/json?type=school&name=kindergarten&rankBy=distance&sensor=true")

@@ -10,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.google.maps.model.PlacesSearchResult;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import koiapp.pr.com.koiapp.R;
@@ -28,10 +31,10 @@ public class FragmentSchoolSearchResult extends PrFragment {
     public static final String TAG = FragmentSchoolSearchResult.class.getName();
     SchoolListAdapter schoolListAdapter;
     RecyclerView rvSchools;
-   private List<Result> schools = new ArrayList<>();
+   private List<PlacesSearchResult> schools = new ArrayList<>();
 
-    public void setSchools(List<Result> schools) {
-        this.schools = schools;
+    public void setSchools(PlacesSearchResult[] schools) {
+        Collections.addAll(this.schools, schools);
     }
 
     @Nullable

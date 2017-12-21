@@ -28,16 +28,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -124,11 +120,11 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
     GoogleApiClient mGoogleApiClient;
 
     private void addListener() {
-        vGooglelogin.setOnClickListener(v->{
-                progressDialog = ProgressDialog.show(ActivityLogin.this,"","Đăng nhập bằng Google",true);
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, 13);
-            }
+        vGooglelogin.setOnClickListener(v -> {
+                    progressDialog = ProgressDialog.show(ActivityLogin.this, "", "Đăng nhập bằng Google", true);
+                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                    startActivityForResult(signInIntent, 13);
+                }
         );
         btnLogin.setOnClickListener(this);
         btnForgotPassw.setOnClickListener(this);
@@ -146,7 +142,6 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         // Result returned from launching the Intent from
         //   GoogleSignInApi.getSignInIntent(...);
         if (requestCode == 13) {
@@ -160,7 +155,10 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
 
                     firebaseAuthWithGoogle(acct);
                 }
-            }
+                Log.e("result", resultCode + "");
+
+            } else Log.e("result fail", result.getStatus() + "");
+
         }
     }
 
@@ -172,7 +170,7 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("Activity Start", "signInWithCredential:success");
-                       FirebaseUser currentUser = mAuth.getCurrentUser();
+                        FirebaseUser currentUser = mAuth.getCurrentUser();
                         if (currentUser != null) {
                             progressDialog.dismiss();
                             updateUI(currentUser);
@@ -249,12 +247,14 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(ActivityLogin.this, "Đăng nhập thành công",
                                 Toast.LENGTH_SHORT).show();
+                        showProgress(false, progressBar);
                         updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("Login", "signInWithEmail:failure", task.getException());
-                        Toast.makeText(ActivityLogin.this, "Đăng nhập thất bại",
+                        Toast.makeText(ActivityLogin.this, "Đăng nhập thất bại" + task.getException().getMessage(),
                                 Toast.LENGTH_SHORT).show();
+                        showProgress(false, progressBar);
                         updateUI(null);
                     }
 
@@ -264,7 +264,7 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent i = new Intent(this,ActivityStart.class);
+            Intent i = new Intent(this, ActivityStart.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
             finish();

@@ -10,15 +10,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import koiapp.pr.com.koiapp.R;
-import koiapp.pr.com.koiapp.moduleChat.model.UserContact;
 import koiapp.pr.com.koiapp.moduleChat.ChatUtils;
 import koiapp.pr.com.koiapp.moduleChat.activity.ActivityContact;
+import koiapp.pr.com.koiapp.moduleChat.model.UserContact;
 import koiapp.pr.com.koiapp.utils.AppUtils;
-import koiapp.pr.com.koiapp.utils.ImageUtils;
 
 /**
  * Created by Tran Anh
@@ -71,7 +73,12 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
             else info += "Admin";
         }
         holder.info.setText(info);
-        ImageUtils.getInstance(activityContact).loadImage(contactItem.getPhotoUrl(), holder.avatar);
+        if (TextUtils.isEmpty(contactItem.getPhotoUrl()))
+            holder.avatar.setImageResource(R.drawable.ic_no_avatar);
+        else
+            Glide.with(activityContact).load(contactItem.getPhotoUrl()).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.avatar);
+
+//        ImageUtils.getInstance(activityContact).loadImage(contactItem.getPhotoUrl(), holder.avatar);
     }
 
 

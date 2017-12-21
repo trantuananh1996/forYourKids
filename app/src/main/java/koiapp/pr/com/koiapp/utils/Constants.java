@@ -8,7 +8,7 @@ import android.Manifest;
  */
 public class Constants {
     public static final String URL_BASE = "http://dev.ko.edu.vn/";
-    public static final String URL_BASE_KOMT = "http://komt.kidsonline.edu.vn/";
+    public static final String URL_BASE_KOMT = "https://komt.kidsonline.edu.vn/";
 
     /**
      * Key for notification

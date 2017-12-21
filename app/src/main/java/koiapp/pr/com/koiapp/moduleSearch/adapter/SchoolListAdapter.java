@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.maps.model.PlacesSearchResult;
+
 import java.util.List;
 
 import koiapp.pr.com.koiapp.R;
@@ -22,12 +24,12 @@ import koiapp.pr.com.koiapp.moduleSearch.utils.GoogleMapApiHelper;
  */
 
 public class SchoolListAdapter extends RecyclerView.Adapter<SchoolListAdapter.SchoolListViewHolder> {
-    private List<Result> schools;
+    private List<PlacesSearchResult> schools;
     private FragmentActivity activity;
 
     private boolean isViewMaps = true;
 
-    public SchoolListAdapter(List<Result> schools, FragmentActivity activity) {
+    public SchoolListAdapter(List<PlacesSearchResult> schools, FragmentActivity activity) {
         this.schools = schools;
         this.activity = activity;
     }
@@ -40,12 +42,12 @@ public class SchoolListAdapter extends RecyclerView.Adapter<SchoolListAdapter.Sc
 
     @Override
     public void onBindViewHolder(SchoolListViewHolder holder, int position) {
-        Result school = schools.get(position);
-        if (school.getPhotos() != null && school.getPhotos().size() > 0)
-            new GoogleMapApiHelper(activity).loadImage(holder.logo, school.getPhotos().get(0).getPhotoReference());
-        holder.name.setText(school.getName());
-        holder.description.setText("Giới thiệu: " + school.getName());
-        holder.address.setText("Địa chỉ: " + school.getFormattedAddress());
+        PlacesSearchResult school = schools.get(position);
+        if (school.photos!= null && school.photos.length > 0)
+            new GoogleMapApiHelper(activity).loadImage(holder.logo, school.photos[0].photoReference);
+        holder.name.setText(school.name);
+        holder.description.setText("Giới thiệu: " + school.name);
+        holder.address.setText("Địa chỉ: " + school.vicinity);
     }
 
     @Override
@@ -79,7 +81,7 @@ public class SchoolListAdapter extends RecyclerView.Adapter<SchoolListAdapter.Sc
                 itemView.setOnClickListener(v -> {
                     if (getAdapterPosition() < 0) return;
                     Intent intent = new Intent(activity, ActivitySchoolInfo.class);
-                    intent.putExtra("SchoolId", schools.get(getAdapterPosition()).getPlaceId());
+                    intent.putExtra("SchoolId", schools.get(getAdapterPosition()).placeId);
                     activity.startActivity(intent);
 //                        FragmentViewOnMaps fragmentViewOnMaps = new FragmentViewOnMaps();
 //                        fragmentViewOnMaps.setItemSchool(schools.get(getAdapterPosition()));

@@ -86,7 +86,8 @@ public class FragmentDashboardManager extends PrFragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
-                    FragmentUtils.getInstance(getActivity()).showToast("Hiện chưa có đơn đăng kí nào được gửi đến");
+                    if(getDataCallback!=null) getDataCallback.onFailed("Hiện chưa có đơn đăng kí nào được gửi đến");
+                    progressDialog.dismiss();
                     return;
                 }
                 if (pendingList == null) pendingList = new ArrayList<>();
@@ -125,5 +126,11 @@ public class FragmentDashboardManager extends PrFragment {
     @Override
     public void findView() {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_register_manager);
+    }
+
+    private GetDataCallback getDataCallback;
+
+    public void setCallback(GetDataCallback callback) {
+        this.getDataCallback = callback;
     }
 }

@@ -26,7 +26,6 @@
         android:lines="1"
         android:maxLines="1"
         android:padding="7dp"
-        android:textColor="@color/colorWhite"
         android:textColorHint="@drawable/hint_text_color"
         android:textSize="14sp" />
 

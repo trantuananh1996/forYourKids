@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,10 +27,10 @@ import java.util.List;
 import koiapp.pr.com.koiapp.R;
 import koiapp.pr.com.koiapp.model.User;
 import koiapp.pr.com.koiapp.moduleSearch.model.placeDetail.Review;
-import koiapp.pr.com.koiapp.utils.realm.PrRealm;
 import koiapp.pr.com.koiapp.utils.AppUtils;
 import koiapp.pr.com.koiapp.utils.FragmentUtils;
-import koiapp.pr.com.koiapp.utils.ImageUtils;
+import koiapp.pr.com.koiapp.utils.debug.Debug;
+import koiapp.pr.com.koiapp.utils.realm.PrRealm;
 
 /**
  * Created by Tran Anh
@@ -77,8 +79,8 @@ public class AdapterReview extends RecyclerView.Adapter<AdapterReview.ReviewView
             holder.edit.setVisibility(View.GONE);
             holder.delete.setVisibility(View.GONE);
         }
-
-        ImageUtils.getInstance(activity).loadImage(review.getProfilePhotoUrl(), holder.ivAvatar);
+        Debug.prLog("User", review.getProfilePhotoUrl());
+        Glide.with(activity).load(review.getProfilePhotoUrl()).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.ivAvatar);
         holder.name.setText(review.getAuthorName());
         holder.ratingBar.setRating(review.getRating());
 

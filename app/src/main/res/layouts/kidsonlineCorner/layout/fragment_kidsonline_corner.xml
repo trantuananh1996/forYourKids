@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fmcontainer"
+    android:id="@+id/container1"
     android:background="@color/colorWhite"
     android:clickable="true">
 
@@ -163,6 +163,11 @@
         </LinearLayout>
     </ScrollView>
 
+    <View
+        android:id="@+id/fake"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff" />
 
     <ProgressBar
         android:id="@+id/progress"

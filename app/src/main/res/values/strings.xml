@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">KOI APP</string>
-    <string name="title_activity_maps">Thông tin mầm non</string>
+    <string name="app_name">forYourKids</string>
+    <string name="title_activity_maps">forYourKids</string>
     <string name="permission_title_rationale">Cần quyền truy cập</string>
     <string name="label_cancel">Hủy</string>
     <string name="label_ok">OK</string>
@@ -22,7 +22,7 @@
     <string name="login_forgot_password_description_dialog_guide">Email hướng dẫn đăng nhập đã được gửi tới địa chỉ email của bạn. Vui lòng kiểm tra email.</string>
     <string name="toast_get_password_not_email_invalid">Email không đúng định dạng</string>
     <string name="toast_get_password_not_input_email">Vui lòng nhập địa chỉ email trước khi gửi</string>
-    <string name="parent_token_key">Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE3MjksImlzcyI6Imh0dHA6XC9cL2tvbXQua2lkc29ubGluZS5lZHUudm5cL2FwaVwvdjJcL2d1YXJkaWFuXC9sb2dpbiIsImlhdCI6MTQ5NzUwMTIyNiwiZXhwIjoxNTAyNjg1MjI2LCJuYmYiOjE0OTc1MDEyMjYsImp0aSI6IjFjODQwN2ViNzUwNjc3YTVjYzg5ZTZiZWMwMThkZGZjIn0.MyE7vhseDZJbaqmqTATjeD7aTJLkJj8gZIjxGWfC-kw</string>
+    <string name="parent_token_key">Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIzMjUzLCJpc3MiOiJodHRwOlwvXC9rb210LmtpZHNvbmxpbmUuZWR1LnZuXC9hcGlcL3YyXC9ndWFyZGlhblwvbG9naW5WMiIsImlhdCI6MTUxMzY0NzYzNCwiZXhwIjoxNTE4ODMxNjM0LCJuYmYiOjE1MTM2NDc2MzQsImp0aSI6Ijg0MWIyYzJlMWViOTUyMTY1MWI0MGM4MTZjY2NhMjYxIn0.7x6n-QgBYZ_wq_256APaZ4l0F8efMWAVv9wNyihbqCs</string>
     <string name="str_lastest">Tin mới nhất</string>
     <string name="str_popular">Được quan tâm</string>
     <string name="str_connect_error">Đường truyền mạng không ổn định, phụ huynh vui lòng thao tác lại</string>
@@ -33,4 +33,7 @@
     <string name="button_yes">Có</string>
     <string name="button_no">Không</string>
     <string name="facebook_app_id">1915216105421966</string>
+    <string name="str_int_image_space_string">%1$d ảnh     %2$s</string>
+    <string name="str_pos_total">%1$d/%2$d</string>
+
 </resources>

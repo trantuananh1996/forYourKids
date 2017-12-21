@@ -20,14 +20,15 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.signature.StringSignature;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
+//import com.facebook.share.model.ShareLinkContent;
+//import com.facebook.share.widget.ShareDialog;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import koiapp.pr.com.koiapp.R;
 import koiapp.pr.com.koiapp.api.KOAPI;
 import koiapp.pr.com.koiapp.modulePost.adapter.KidsCategoryCoverAdapter;
@@ -40,15 +41,18 @@ import koiapp.pr.com.koiapp.modulePost.model.KidsCornerPost;
 import koiapp.pr.com.koiapp.utils.DateTimeUtils;
 import koiapp.pr.com.koiapp.utils.FragmentUtils;
 import koiapp.pr.com.koiapp.utils.HTTPUtils;
+import koiapp.pr.com.koiapp.utils.NameConfigs;
 import koiapp.pr.com.koiapp.utils.ViewUtils;
 import koiapp.pr.com.koiapp.utils.customVP.KCViewpager;
 import koiapp.pr.com.koiapp.utils.debug.Debug;
+import koiapp.pr.com.koiapp.utils.realm.PrRealm;
 import koiapp.pr.com.koiapp.utils.view.PrFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static koiapp.pr.com.koiapp.utils.Constants.URL_BASE_KOMT;
+import static koiapp.pr.com.koiapp.utils.FragmentUtils.showProgress;
 
 /**
  * Created by Tran Anh
@@ -113,6 +117,8 @@ public class FragmentKidsonlineCorner extends PrFragment {
                 int viewWidth = ViewUtils.getScreenWidthInPx(parentActivity) / 5 * 3;
                 frameCategory.getLayoutParams().height = (9 * viewWidth) / 16;
                 frameCategory.requestLayout();
+                showProgress(false,progressBar);
+                rootView.findViewById(R.id.fake).setVisibility(View.GONE);
             });
             return null;
         }
@@ -130,7 +136,7 @@ public class FragmentKidsonlineCorner extends PrFragment {
             holder.time.setText(DateTimeUtils.getFormatedDateTime(DateTimeUtils.dd_MM_yyyy, post.getTime()));
             view.setOnClickListener(v -> {
                 Intent intent = new Intent(parentActivity, ActivityViewPostWebView.class);
-                intent.putExtra("POST_ID", post.getId());
+                intent.putExtra("url", post.getUrl());
                 parentActivity.startActivity(intent);
             });
             llLastest.addView(view);
@@ -158,6 +164,7 @@ public class FragmentKidsonlineCorner extends PrFragment {
 
 
     private void getDataKOCorner() {
+        showProgress(true,progressBar);
         Call<JsonObject> call = KOAPI.getKOServices().getDataKidsonlineCorner(getActivity().getString(R.string.parent_token_key));
         HTTPUtils.postDetail(call, null);
         call.enqueue(new Callback<JsonObject>() {
@@ -199,6 +206,7 @@ public class FragmentKidsonlineCorner extends PrFragment {
         categories.clear();
         categories.addAll(data.getCategories());
         addListCategory();
+
 
         as.execute("");
     }
@@ -253,15 +261,15 @@ public class FragmentKidsonlineCorner extends PrFragment {
 
     public void sharePost(String postStr) {
         KidsCornerPost post = new Gson().fromJson(postStr, KidsCornerPost.class);
-        ShareDialog shareDialog = new ShareDialog(getActivity());
-        if (ShareDialog.canShow(ShareLinkContent.class)) {
-            ShareLinkContent content = new ShareLinkContent.Builder()
-                    .setContentUrl(Uri.parse(post.getUrl()))
-                    .setContentTitle(post.getTitle())
-                    .build();
-
-            shareDialog.show(content);
-        }
+//        ShareDialog shareDialog = new ShareDialog(getActivity());
+//        if (ShareDialog.canShow(ShareLinkContent.class)) {
+//            ShareLinkContent content = new ShareLinkContent.Builder()
+//                    .setContentUrl(Uri.parse(post.getUrl()))
+//                    .setContentTitle(post.getTitle())
+//                    .build();
+//
+//            shareDialog.show(content);
+//        }
     }
 
 

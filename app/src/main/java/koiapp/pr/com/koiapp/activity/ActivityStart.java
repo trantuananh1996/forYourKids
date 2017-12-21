@@ -11,10 +11,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,9 +24,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -34,15 +38,25 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.maps.GeoApiContext;
+import com.google.maps.PlacesApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.LatLng;
+import com.google.maps.model.PlaceType;
+import com.google.maps.model.PlacesSearchResponse;
 
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,15 +75,14 @@ import koiapp.pr.com.koiapp.modulePost.activity.ActivityKidsOnlineCorner;
 import koiapp.pr.com.koiapp.moduleSchoolInfo.activity.ActivitySchoolInfo;
 import koiapp.pr.com.koiapp.moduleSearch.activity.ActivityFindNearby;
 import koiapp.pr.com.koiapp.moduleSearch.activity.FragmentSchoolSearchResult;
-import koiapp.pr.com.koiapp.moduleSearch.model.DataSearchMap;
-import koiapp.pr.com.koiapp.moduleSearch.utils.GoogleMapApiHelper;
-import koiapp.pr.com.koiapp.moduleSearch.utils.SearchCallBack;
-import koiapp.pr.com.koiapp.utils.ImageUtils;
+import koiapp.pr.com.koiapp.moduleSearch.adapter.MySchoolListAdapter;
+import koiapp.pr.com.koiapp.moduleSearch.model.placeDetail.ResultDetail;
 import koiapp.pr.com.koiapp.utils.debug.Debug;
 import koiapp.pr.com.koiapp.utils.realm.PrRealm;
 import koiapp.pr.com.koiapp.utils.view.Config;
 
 import static koiapp.pr.com.koiapp.utils.AppUtils.createDialogFromActivity;
+import static koiapp.pr.com.koiapp.utils.FragmentUtils.showProgress;
 
 public class ActivityStart extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -83,6 +96,8 @@ public class ActivityStart extends AppCompatActivity
     NavigationView navigationView;
     FirebaseUser currentUser;
     public static String currentRole = "parent";
+    ProgressBar progressBar;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +105,13 @@ public class ActivityStart extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         // Configure Google Sign In
         mAuth = FirebaseAuth.getInstance();
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        toolbar.findViewById(R.id.search_icon).setOnClickListener(v -> {
+            openAutocompleteActivity();
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -106,8 +123,46 @@ public class ActivityStart extends AppCompatActivity
         headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
 
+        showProgress(true, progressBar);
         findView();
+        RecyclerView rvNews = (RecyclerView) findViewById(R.id.rv_newest);
+        List<ResultDetail> details = new ArrayList<>();
+        MySchoolListAdapter mySchoolListAdapter = new MySchoolListAdapter(details, this);
+        rvNews.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvNews.setAdapter(mySchoolListAdapter);
+        FirebaseDatabase.getInstance().getReference("places").orderByChild("last_update").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                try {
+                    if (count > 79) showProgress(false, progressBar);
+                    ResultDetail detail = dataSnapshot.getValue(ResultDetail.class);
+                    details.add(0, detail);
+                    mySchoolListAdapter.notifyItemInserted(0);
+                    count++;
+                } catch (Exception e) {
+                }
+            }
 
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         addListener();
     }
@@ -141,20 +196,42 @@ public class ActivityStart extends AppCompatActivity
 
     private void search(String query) {
         progressDialog = ProgressDialog.show(ActivityStart.this, "", "Đang tìm kiếm", true);
-        query = "mầm non " + query;
-        new GoogleMapApiHelper(ActivityStart.this).getSearchTextResult(query, new SearchCallBack() {
-            @Override
-            public void onSearchCompleted(DataSearchMap dataSearchMap) {
-                progressDialog.dismiss();
-                handleSearchResult(dataSearchMap);
-            }
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        runOnUiThread(() -> {
+            String q2 = "mầm non " + query;
+            GeoApiContext context = new GeoApiContext.Builder()
+                    .apiKey(getString(R.string.google_maps_key))
+                    .build();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            try {
+                LatLng latLng = new LatLng(21.021322500000004, 105.79484765625003);
+                PlacesSearchResponse results = PlacesApi.nearbySearchQuery(context, latLng)
+                        .type(PlaceType.SCHOOL)
+                        .radius(50000)
+                        .keyword(q2)
+                        .await();
+                handleSearchResult(results);
+                Debug.prLog("Response", gson.toJson(results));
 
-            @Override
-            public void onSearchFailed(String status, String message) {
+            } catch (ApiException e) {
+                e.printStackTrace();
+                Snackbar.make(edtSearch, e.getMessage(), Snackbar.LENGTH_LONG).show();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Snackbar.make(edtSearch, e.getMessage(), Snackbar.LENGTH_LONG).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Snackbar.make(edtSearch, e.getMessage(), Snackbar.LENGTH_LONG).show();
+            } finally {
                 progressDialog.dismiss();
-                Snackbar.make(edtSearch, message, Snackbar.LENGTH_LONG).show();
             }
         });
+
+
     }
 
 
@@ -165,14 +242,14 @@ public class ActivityStart extends AppCompatActivity
         tvNavEmail = (TextView) headerView.findViewById(R.id.tv_nav_email);
     }
 
-    private void handleSearchResult(DataSearchMap dataSearchMap) {
+    private void handleSearchResult(PlacesSearchResponse dataSearchMap) {
         FragmentSchoolSearchResult fragmentSchoolSearchResult = new FragmentSchoolSearchResult();
-        fragmentSchoolSearchResult.setSchools(dataSearchMap.getResults());
+        fragmentSchoolSearchResult.setSchools(dataSearchMap.results);
         fragmentSchoolSearchResult.show(getSupportFragmentManager(), R.id.bottom_sheet);
         PrRealm prRealm = PrRealm.getInstance(this);
         Realm realm = prRealm.getRealm(Config.REALM_NAME_SCHOOL_LIST);
         realm.beginTransaction();
-        realm.copyToRealmOrUpdate(dataSearchMap.getResults());
+//        realm.copyToRealmOrUpdate(dataSearchMap.getResults());
         realm.commitTransaction();
     }
 
@@ -189,7 +266,7 @@ public class ActivityStart extends AppCompatActivity
 
     private void openAutocompleteActivity() {
         try {
-            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
                     .build(this);
             startActivityForResult(intent, 11);
         } catch (GooglePlayServicesRepairableException e) {
@@ -292,6 +369,7 @@ public class ActivityStart extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        count = 0;
         if (currentUser == null) {
             currentUser = mAuth.getCurrentUser();
             updateUI(currentUser);
@@ -375,6 +453,7 @@ public class ActivityStart extends AppCompatActivity
                             post.setData(itemNotification);
                             post.setRegistrationIds(u.getDevice_ids());
                             FirebaseAPI.sendNotification(post, getString(R.string.firebase_key_authorization), getString(R.string.firebase_content_type));
+                            Toast.makeText(ActivityStart.this, "Yêu cầu đã được gửi đi", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -472,7 +551,7 @@ public class ActivityStart extends AppCompatActivity
             navigationView.getMenu().getItem(4).getSubMenu().getItem(3).setVisible(true);
             try {
                 if (currentUser.getPhotoUrl() != null)
-                    ImageUtils.getInstance(this).loadImage(currentUser.getPhotoUrl().toString(), ivNavAvatar);
+                    Glide.with(this).load(currentUser.getPhotoUrl().toString()).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivNavAvatar);
             } catch (Exception e) {
                 e.printStackTrace();
             }

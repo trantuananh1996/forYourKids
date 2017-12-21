@@ -2,6 +2,7 @@ package koiapp.pr.com.koiapp.moduleSchoolInfo.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -48,6 +49,7 @@ public class ActivitySchoolInfo extends AppCompatActivity {
     ViewPager pager;
     ResultDetail detail;
     FragmentReview fragmentReview;
+    FragmentPhoto fragmentPhoto;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,15 +82,19 @@ public class ActivitySchoolInfo extends AppCompatActivity {
         this.detail = detail;
         fragmentSchoolInfo = new FragmentSchoolInfo();
         fragmentSchoolInfo.setDetail(detail);
-        fragmentSchoolInfo.setFragmentName("Thông tin");
+        fragmentSchoolInfo.setFragmentName("TỔNG QUAN");
 
         fragmentReview = new FragmentReview();
-        fragmentReview.setFragmentName("Review");
+        fragmentReview.setFragmentName("BÀI ĐÁNH GIÁ");
         fragmentReview.setDetail(detail);
 
+        fragmentPhoto = new FragmentPhoto();
+        fragmentPhoto.setDetail(detail);
+        fragmentPhoto.setFragmentName("ẢNH");
         List<PrFragment> fragments = new ArrayList<>();
         fragments.add(fragmentSchoolInfo);
         fragments.add(fragmentReview);
+        fragments.add(fragmentPhoto);
         PagerAdapterInfo adapter = new PagerAdapterInfo(getSupportFragmentManager(), fragments);
         pager.setAdapter(adapter);
     }
@@ -99,18 +105,22 @@ public class ActivitySchoolInfo extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_school_info, menu);
 
-        if (currentRole.equals("parent")) {
-            menu.getItem(1).setVisible(false);
-            menu.getItem(2).setVisible(false);
+        switch (currentRole) {
+            case "parent":
+                menu.getItem(1).setVisible(false);
+                menu.getItem(2).setVisible(false);
 
-        } else if (currentRole.equals("schoolManager")) {
-            menu.getItem(2).setVisible(false);
-            menu.getItem(0).setVisible(false);
+                break;
+            case "schoolManager":
+                menu.getItem(2).setVisible(false);
+                menu.getItem(0).setVisible(false);
 
-        } else if (currentRole.equals("admin")) {
-            menu.getItem(0).setVisible(false);
-            menu.getItem(1).setVisible(false);
+                break;
+            case "admin":
+                menu.getItem(0).setVisible(false);
+                menu.getItem(1).setVisible(false);
 
+                break;
         }
         // return true so that the menu pop up is opened
         return true;

@@ -57,8 +57,9 @@ public class KidsCategoryCoverAdapter extends PagerAdapter {
             viewToFitSize.getLayoutParams().height = viewHeight;
             viewToFitSize.requestLayout();
             ImageView ivCover = (ImageView) view.findViewById(R.id.iv_cover);
-            Debug.prLog("Url to load",  category.getAvatar());
-            loadImage(category.getAvatar(), ivCover);
+            Debug.prLog("Url to load", category.getAvatar());
+            Glide.with(parentFragment.getActivity()).load(URL_BASE_KOMT + category.getAvatar()).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivCover);
+//            loadImage(category.getAvatar(), ivCover);
             ivCover.setOnClickListener(v -> {
                 FragmentCategory fragmentCategory = new FragmentCategory();
                 fragmentCategory.setCategoryId(category.getId());
@@ -69,7 +70,7 @@ public class KidsCategoryCoverAdapter extends PagerAdapter {
                         R.anim.slide_left_exit,
                         R.anim.slide_down_enter,
                         R.anim.slide_right_exit);
-                transaction.replace(R.id.fmcontainer, fragmentCategory
+                transaction.add(R.id.container1, fragmentCategory
                         , fragmentCategory.getClass().getName());
                 transaction.addToBackStack(null);
                 transaction.commit();

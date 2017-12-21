@@ -26,13 +26,13 @@ import java.util.Locale;
 
 import koiapp.pr.com.koiapp.R;
 import koiapp.pr.com.koiapp.model.User;
-import koiapp.pr.com.koiapp.moduleChat.model.UserContact;
-import koiapp.pr.com.koiapp.moduleChat.model.ChatMessage;
 import koiapp.pr.com.koiapp.moduleChat.ChatUtils;
 import koiapp.pr.com.koiapp.moduleChat.adapter.ContactRecyclerAdapter;
-import koiapp.pr.com.koiapp.utils.realm.PrRealm;
+import koiapp.pr.com.koiapp.moduleChat.model.ChatMessage;
+import koiapp.pr.com.koiapp.moduleChat.model.UserContact;
 import koiapp.pr.com.koiapp.utils.FragmentUtils;
 import koiapp.pr.com.koiapp.utils.HTTPUtils;
+import koiapp.pr.com.koiapp.utils.realm.PrRealm;
 
 import static koiapp.pr.com.koiapp.moduleChat.ChatUtils.KEY_LAST_UPDATE;
 import static koiapp.pr.com.koiapp.moduleChat.ChatUtils.KEY_MESSAGES;
@@ -62,6 +62,9 @@ public class ActivityContact extends AppCompatActivity {
         httpUtils = HTTPUtils.getInstance(ActivityContact.this);
         fragmentUtils = FragmentUtils.getInstance(ActivityContact.this);
         rootRef = FirebaseDatabase.getInstance().getReference("chats");
+        User user = PrRealm.getInstance(getApplicationContext()).getCurrentUser();
+        if (user != null)
+            FirebaseDatabase.getInstance().getReference("users").child(user.getuId()).child("online").setValue(true);
         findView();
         getContact();
     }
@@ -76,10 +79,10 @@ public class ActivityContact extends AppCompatActivity {
     private void getContact() {
         FragmentUtils.showProgress(true, progressBar);
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (users == null) users = new ArrayList<>();
+                 users = new ArrayList<>();
 
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
                     UserContact u = d.getValue(UserContact.class);
@@ -209,6 +212,7 @@ public class ActivityContact extends AppCompatActivity {
     }
 
     private void addContactList() {
+        Collections.sort(users);
         mAdapter = new ContactRecyclerAdapter(ActivityContact.this);
         rvContact.setAdapter(mAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -241,6 +245,11 @@ public class ActivityContact extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        User user = PrRealm.getInstance(getApplicationContext()).getCurrentUser();
+        if (user != null)
+            FirebaseDatabase.getInstance().getReference("users").child(user.getuId()).child("online").setValue(false);
+        findView();
+
     }
 
 

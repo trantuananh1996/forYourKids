@@ -26,6 +26,7 @@ public class UserContact implements Comparable<UserContact> {
 
     private String lastMessageKey;
     private boolean isHasMessage = false;
+    @SerializedName("online")
     private boolean isOnline = false;
     private Long lastUpdate;
 
@@ -112,8 +113,9 @@ public class UserContact implements Comparable<UserContact> {
 
     @Override
     public int compareTo(@NonNull UserContact user) {
-        if (this.lastUpdate == null || user.getLastUpdate() == null) return 0;
-        return this.lastUpdate.compareTo(user.lastUpdate);
+//        if (this.lastUpdate == null || user.getLastUpdate() == null) return 0;
+//        return this.lastUpdate.compareTo(user.lastUpdate);
+        try{return this.name.compareTo(user.name);}catch (Exception e){return 0;}
     }
 
     public String getSchool_name() {

@@ -4,23 +4,7 @@
             "outputFile": "C:\\Users\\Tran Anh\\Documents\\GitHub\\forYourKids\\imagepicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v22\\values-v22.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Tran Anh\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\67227a5561fb91426d83bf644aa8a338\\res\\values-v22\\values-v22.xml",
-                    "from": {
-                        "startLines": "2,3,4,9",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,130,217,553",
-                        "endLines": "2,3,8,13",
-                        "endColumns": "74,86,12,12",
-                        "endOffsets": "125,212,548,896"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "C:\\Users\\Tran Anh\\Documents\\KidsOnline\\Android_SourceCode\\KOIAPP\\imagepicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v22\\values-v22.xml",
-            "map": [
-                {
-                    "source": "C:\\Users\\Tran Anh\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\408453166b74e109f9b5968c719de0a2\\res\\values-v22\\values-v22.xml",
+                    "source": "C:\\Users\\Tran Anh\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\79ab1054d75595040b6db82e294e3f8b\\res\\values-v22\\values-v22.xml",
                     "from": {
                         "startLines": "2,3,4,9",
                         "startColumns": "4,4,4,4",

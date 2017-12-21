@@ -117,10 +117,10 @@ public class GoogleMapApiHelper {
             call.enqueue(new Callback<DataSearchMap>() {
                 @Override
                 public void onResponse(Call<DataSearchMap> call, Response<DataSearchMap> response) {
+                    Debug.prLog("Size", new Gson().toJson(response.body()));
                     if (localData != null && localData.getResults() != null) {
                         localData.getResults().addAll(response.body().getResults());
                         localData.setNextPageToken(response.body().getNextPageToken());
-                        Debug.prLog("Size", new Gson().toJson(response.body()));
 
                     } else
                         localData = response.body();
@@ -171,8 +171,7 @@ public class GoogleMapApiHelper {
                 photoRef +
                 "&key=" +
                 appCompatActivity.getString(R.string.google_maps_key);
-
-        System.out.println(url);
+//        System.out.println(url);
         initGlideLoad(appCompatActivity, url)
                 .thumbnail(0.5f)
                 .crossFade()
@@ -193,7 +192,6 @@ public class GoogleMapApiHelper {
     GetDetailCallBack mDetailCallback;
 
 
-
     public void getDetail(final String placeId, final GetDetailCallBack mDetailCallback) {
         this.mDetailCallback = mDetailCallback;
 
@@ -208,6 +206,7 @@ public class GoogleMapApiHelper {
                 } else {
                     Debug.prLog("Chi tiết", "Có rồi, lấy từ firebase xuống hoy");
 
+                    dbRef.child("last_update").setValue(System.currentTimeMillis() / 1000);
                     ResultDetail detail = dataSnapshot.getValue(ResultDetail.class);
                     if (mDetailCallback != null) {
                         if (detail != null) mDetailCallback.onSearchCompleted(detail);
@@ -223,6 +222,18 @@ public class GoogleMapApiHelper {
     }
 
     private void requestGetDetail(final DatabaseReference dbRef, String placeId) {
+//        GeoApiContext context = new GeoApiContext.Builder()
+//                .apiKey(appCompatActivity.getString(R.string.google_maps_key))
+//                .build();
+//        try {
+//           PlaceDetails a= PlacesApi.placeDetails(context, placeId).await();
+//        } catch (ApiException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         Call<DataPlaceDetail> call = GoogleMapApiHelper.getServices().getPlaceDetail(placeId, appCompatActivity.getString(R.string.google_maps_key));
         Debug.prLog("Detail url", call.request().url().toString());
         call.enqueue(new Callback<DataPlaceDetail>() {
@@ -236,6 +247,7 @@ public class GoogleMapApiHelper {
                             mDetailCallback.onSearchCompleted(detail);
                         }
                         dbRef.setValue(detail);
+                        dbRef.child("last_update").setValue(System.currentTimeMillis() / 1000);
                         dbRef.child("exist").setValue(1);//Push lên firebase để check cái này đã tồn tại
                     }
                 }
@@ -243,7 +255,7 @@ public class GoogleMapApiHelper {
 
             @Override
             public void onFailure(Call<DataPlaceDetail> call, Throwable t) {
-
+                mDetailCallback.onSearchFailed("-1", t.getMessage());
             }
         });
     }

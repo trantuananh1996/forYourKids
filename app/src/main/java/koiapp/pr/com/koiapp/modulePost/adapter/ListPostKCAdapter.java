@@ -116,7 +116,7 @@ public class ListPostKCAdapter extends RecyclerView.Adapter<ListPostKCAdapter.Po
             itemView.setOnClickListener(v -> {
                 if (getAdapterPosition() != -1) {
                     Intent intent = new Intent(activity, ActivityViewPostWebView.class);
-                    intent.putExtra("POST_ID", posts.get(getAdapterPosition()).getId());
+                    intent.putExtra("url", posts.get(getAdapterPosition()).getUrl());
                     activity.startActivity(intent);
                 }
             });

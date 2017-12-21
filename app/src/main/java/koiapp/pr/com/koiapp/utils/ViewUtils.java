@@ -9,6 +9,8 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 
 /**
@@ -18,7 +20,11 @@ public class ViewUtils {
     public Context mContext;
     private static volatile ViewUtils instance = null;
 
-
+    public static void setMarginFor(ImageView imageView, int left, int top, int right, int bottom) {
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(imageView.getLayoutParams());
+        lp.setMargins(left, top, right, bottom);
+        imageView.setLayoutParams(lp);
+    }
     public static ViewUtils getInstance(Context context) {
         if (instance == null) {
             synchronized (ViewUtils.class) {

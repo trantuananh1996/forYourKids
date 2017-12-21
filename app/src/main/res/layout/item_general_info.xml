@@ -9,22 +9,21 @@
         android:layout_height="wrap_content"
         android:background="@color/colorWhite">
 
-        <TextView
+        <ImageView
             android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="4dp"
-            android:text="Tổng quan"
-            android:textStyle="bold" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:padding="7dp"/>
 
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
             android:padding="4dp"
-            android:text="lorem ipsumịuksfhdkbzdylhvgdoxkhbdkxygvbldzvbfxkvhbcvsgdivlfdvk" />
+            android:layout_gravity="center"
+            android:text="lorem ivbfxkvhbcvs" />
     </LinearLayout>
 
     <View
